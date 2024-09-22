@@ -158,7 +158,9 @@ class Sigmoid(ScalarFunction):
     @staticmethod
     def backward(ctx: Context, d_output: float) -> float:
         # TODO: Implement for Task 1.4.
-        raise NotImplementedError("Need to implement for Task 1.4")
+        (a,) = ctx.saved_values
+        sig = operators.sigmoid
+        return sig(a) * (1 - sig(a)) * d_output
 
 
 class ReLU(ScalarFunction):
@@ -189,7 +191,8 @@ class Exp(ScalarFunction):
     @staticmethod
     def backward(ctx: Context, d_output: float) -> float:
         # TODO: Implement for Task 1.4.
-        raise NotImplementedError("Need to implement for Task 1.4")
+        (a,) = ctx.saved_values
+        return a * operators.exp(a) * d_output
 
 
 class LT(ScalarFunction):
@@ -206,7 +209,8 @@ class LT(ScalarFunction):
         # TODO: Implement for Task 1.4.
         # Derivative should  be 0 everywhere except for x = y
         # How do I deal with it?
-        raise NotImplementedError("Need to implement for Task 1.4")
+        a,b = ctx.saved_values
+        return (0.0, 0.0)
 
 
 class EQ(ScalarFunction):
@@ -220,4 +224,5 @@ class EQ(ScalarFunction):
     @staticmethod
     def backward(ctx: Context, d_output: float) -> Tuple[float, float]:
         # TODO: Implement for Task 1.4.
-        raise NotImplementedError("Need to implement for Task 1.4")
+        a,b = ctx.saved_values
+        return (0.0, 0.0)

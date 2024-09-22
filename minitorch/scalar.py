@@ -179,14 +179,14 @@ class Scalar:
         # Ancestors of scalar should only be scalars (might be problematic) 
         
         # results = []
-        devs = h.last_fn._backward(h.ctx, d_output)
+        derivs = h.last_fn._backward(h.ctx, d_output)
         # if isinstance(devs, float):
         #     for inputs in h.inputs:
-        #         results.append((inputs, devs))
+        #         results.append((inputs, derivs))
         #     return results
         # else:
-        #     return zip(h.inputs, devs)
-        return zip(h.inputs, devs)
+        #     return zip(h.inputs, derivs)
+        return zip(h.inputs, derivs)
     
         
 

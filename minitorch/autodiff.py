@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Iterable, List, Tuple, Set
+from typing import Any, Iterable, List, Tuple, Set, Dict
 
 from typing_extensions import Protocol
 
@@ -99,7 +99,25 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
     No return. Should write to its results to the derivative values of each leaf through `accumulate_derivative`.
     """
     # TODO: Implement for Task 1.4.
-    raise NotImplementedError("Need to implement for Task 1.4")
+    sorted_vars: Iterable[Variable] = topological_sort(variable)
+    accumulated_d_vals: Dict[int, Any] = {}
+    for var in sorted_vars:
+        accumulated_d_vals[var.unique_id] = 0.0
+    
+    accumulated_d_vals[variable.unique_id] = deriv
+    
+    for var in sorted_vars:
+        var_deriv = accumulated_d_vals[var.unique_id]
+        if var.is_leaf():
+            var.accumulate_derivative(var_deriv)
+        else:
+            var_chain = var.chain_rule(var_deriv)
+            for input, input_deriv in var_chain:
+                accumulated_d_vals[input.unique_id] += input_deriv
+        
+        
+
+    
 
 
 @dataclass
