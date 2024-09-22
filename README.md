@@ -14,5 +14,8 @@ python sync_previous_module.py previous-module-dir current-module-dir
 ```
 
 The files that will be synced are:
-
+```
         minitorch/operators.py minitorch/module.py tests/test_module.py tests/test_operators.py project/run_manual.py
+```
+
+![Dataset: Xor, trained using project/run_scalar.py](media/newplot.png)
